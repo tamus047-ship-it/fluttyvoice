@@ -19,6 +19,28 @@ async function generate() {
     })
   });
 
-  const audio = await response.blob();
-  document.getElementById("audio").src = URL.createObjectURL(audio);
+  const audioBlob = await response.blob();
+  const audioURL = URL.createObjectURL(audioBlob);
+
+  addToHistory(text, audioURL);
+}
+
+function addToHistory(text, audioURL) {
+  const historyDiv = document.getElementById("history");
+
+  const item = document.createElement("div");
+  item.className = "history-item";
+
+  item.innerHTML = `
+    <div>
+      <strong>Tekst:</strong><br>${text}
+    </div>
+    <div>
+      <audio controls src="${audioURL}"></audio>
+      <br>
+      <a href="${audioURL}" download="banowy_voice.wav">Pobierz</a>
+    </div>
+  `;
+
+  historyDiv.prepend(item);
 }
