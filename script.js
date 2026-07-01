@@ -9,12 +9,19 @@ async function generate() {
     },
     body: JSON.stringify({
       text: text,
+
+      // Najbardziej ludzki model
       model_id: "eleven_multilingual_v2",
+
+      // Wymuszony angielski – zero przełączania języka
+      language: "en",
+
+      // Ustawienia ultra-ludzkie
       voice_settings: {
-        stability: 0.20,
-        similarity_boost: 0.75,
-        style: 0.60,
-        use_speaker_boost: true
+        stability: 0.10,          // Bardzo emocjonalne, naturalne
+        similarity_boost: 0.85,   // Zachowuje twój głos, ale dodaje realizm
+        style: 0.80,              // Naturalny flow narracji
+        use_speaker_boost: true   // Głębia i ludzkie brzmienie
       }
     })
   });
@@ -33,12 +40,12 @@ function addToHistory(text, audioURL) {
 
   item.innerHTML = `
     <div>
-      <strong>Tekst:</strong><br>${text}
+      <strong>Text:</strong><br>${text}
     </div>
     <div>
       <audio controls src="${audioURL}"></audio>
       <br>
-      <a href="${audioURL}" download="banowy_voice.wav">Pobierz</a>
+      <a href="${audioURL}" download="banowy_voice.wav">Download</a>
     </div>
   `;
 
